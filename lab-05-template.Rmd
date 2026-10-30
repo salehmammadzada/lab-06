@@ -65,8 +65,8 @@ Ensure that you have the following two lines of code at the top of `lab-05.Rmd` 
 library(tidyverse)
 library(ggplot2)
 
-# Install that package first 
-# install.packages("fivethirtyeight")
+#Install that package first 
+install.packages("fivethirtyeight")
 library(fivethirtyeight)
 ```
 
@@ -82,7 +82,7 @@ glimpse(candy_df)
 How many observations and variables are in this dataset?
 Did you identify the type of variables, remember that this detail is crucial to create which kind of data visualization in general. 
 
-_Write your comments about results_
+there are 85 rows and 13 columns.
 
 # Data viz - One variable at a time
 
@@ -98,19 +98,32 @@ candy_df <- candy_df %>%
 Complete the following code to get the data viz to represent "how many candies contain caramel via bar plot". Fill in the blanks, remove the # symbol in front of your code and the execute the code chunk via green play button.
 
 ```{r}
-# ggplot(candy_rankings, aes(x = ______)) +
-#  _____() +
+ ggplot(candy_rankings, aes(x = caramel)) +
+  geom_bar()
+
+
+ggplot(candy_rankings, aes(x = chocolate, y = after_stat(count))) +
+  geom_bar()
+
 ```
+approx 13-14 of them contains caramel but for chocalate there are 35-36 bars that contain chocolate.
+
 
 ## Exercise 3
 
 Now look at a numerical variable, such as `winpercent`. Create an histogram for this variable using ggplot2 functions below. Include informative x and y labels and a title, as a good practice.
 
 ```{r}
-# Your code here
+ggplot(candy_rankings, aes(x = winpercent, y = after_stat(count))) +
+  geom_histogram(binwidth = 20) +
+  labs(
+    title = "Distribution of Win Percent",
+    x = "Win Percent",
+    y = "Count"
+  )
 
 ```
-
+the more the bandwith the more general it gets and chunks are getting bigger.
 
 # Data viz - more than one variable
 
@@ -122,14 +135,16 @@ Fill in the blanks, remove the # symbol in front of your code and the execute th
 
 ```{r}
 # Your code here
-#ggplot(candy_df, aes(x = ___________)) +
-#  geom_histogram() +
-#  facet_wrap(___________)
+ggplot(candy_df, aes(x = winpercent, fill = caramel)) +
+geom_histogram() +
+facet_wrap(~chocolate)
 
 ```
 
 
 - Consider adding the `fill = caramel` within the aes() vs. geom_histogram(), what do you get? 
+
+in geom histogram there is no caramel found , but in aes() you get bars that contain caramel different color.
 
 ## Exercise 5
 
