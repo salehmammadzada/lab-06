@@ -151,12 +151,34 @@ in geom histogram there is no caramel found , but in aes() you get bars that con
 Create a visualization that examines the relationship between a candy’s win percentage and whether it contains chocolate. Include x and y labels and a title. Describe any relationship you see.
 
 ```{r}
-# your code here
+ggplot(candy_rankings, aes(x= chocolate , y= winpercent))+
+  geom_boxplot()+
+  labs(
+    title = "relationship between chocolate and winpercent",
+    x= "contains chocolate",
+    y= "Win Percent")
+```
+``` {r}
+ggplot(candy_rankings, aes(x= caramel , y= winpercent))+
+  geom_boxplot()+
+  labs(
+    title = "relationship between caramel and winpercent",
+    x= "contains caramel",
+    y= "Win Percent")
+
+
+ggplot(candy_rankings, aes(x= fruity , y= winpercent))+
+  geom_boxplot()+
+  labs(
+    title = "relationship between fruity and winpercent",
+    x= "contains fruity",
+    y= "Win Percent")
 
 ```
-
 - Consider the similar pair by replacing chocolate with caramel, fruity and compare their results. 
 - Also include summary statistics details for this discussion by using the calculation below: 
+
+
 
 ```{r}
 candy_rankings %>%
@@ -167,7 +189,7 @@ candy_rankings %>%
     median_win = median(winpercent)
   )
 ```
-
+median of that does not contain fruity is significantly higher than the one that does not contain caramel, and its peak is higher than the 2nd one(does not contain caramel category). For the categories that contains fruity and caramel is the opposite.
 
 ## Exercise 6
 
