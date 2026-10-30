@@ -197,6 +197,30 @@ Do more expensive candies win more often? Make a scatterplot of pricepercent (x)
 
 ```{r}
 # your code here
+ggplot(candy_rankings, aes(x = pricepercent, y = winpercent)) +
+  geom_point() +
+  labs(
+    title = "Relationship Between Price and Win Percentage",
+    x = "Price Percent",
+    y = "Win Percent"
+  )
+ggplot(candy_rankings , aes(x=pricepercent , y =winpercent , color=chocolate))+
+  geom_point()+
+  labs(
+    title = "Relationship Between Price and Win Percentage",
+    x = "Price Percent",
+    y = "Win Percent" , 
+    color = "contains chocolate"
+  )
+ggplot(candy_rankings , aes(x=pricepercent , y =winpercent , color=chocolate))+
+  geom_point()+
+  facet_wrap(~bar)+
+  labs(
+     title = "Relationship Between Price and Win Percentage",
+    x = "Price Percent",
+    y = "Win Percent" , 
+    color = "contains chocolate"
+  )
 
 ```
 
@@ -211,18 +235,41 @@ Are chocolate candies more likely to be candy bars? Make a filled bar plot with 
 
 ```{r}
 # Your code here
-
+ggplot(candy_rankings, aes(x = chocolate, fill = bar)) +
+  geom_bar() +
+  labs(
+    title = "Distribution of Candy Bars by Chocolate Content",
+    x = "Contains Chocolate",
+    y = "Count",
+    fill = "Is a Bar"
+  )
 ```
-
+chocolate candies are more likely to be a bar.
 
 ## Exercise 8
 Create a new variable called price per sugar ratio as the division of pricepercent and sugarpercent. Plot it against winpercent, and set the color of all points to blue for the competitors who are not "One dime" or "One quarter". Include x and y labels and a title. Describe any relationship you see.
 
 ```{r}
 # your code here
+candy_rankings <- candy_rankings %>%
+  mutate(price_per_sugar_ratio= pricepercent / winpercent)
+
+ggplot(candy_rankings, aes(x = price_per_sugar_ratio, y = winpercent)) +
+  geom_point(
+    data = candy_rankings %>% filter(competitorname != "One dime" & competitorname != "One quarter"),
+    color = "blue"
+  ) +
+  geom_point(
+    data = candy_rankings %>% filter(competitorname == "One dime" | competitorname == "One quarter")
+  ) +
+  labs(
+    title = "Relationship Between Price per Sugar Ratio and Win Percentage",
+    x = "Price per Sugar Ratio",
+    y = "Win Percent"
+  )
 
 ```
-
+there is a negative relationship  between price per sugar ration and winpercent. 
 
 ## Exercise 9
 
